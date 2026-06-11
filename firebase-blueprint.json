@@ -1,0 +1,25 @@
+{
+  "entities": {
+    "Hotel": {
+      "title": "Hotel",
+      "description": "Information about a hotel including its owner and location.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "The name of the hotel" },
+        "image": { "type": "string", "description": "URL to the hotel image" },
+        "address": { "type": "string", "description": "The street address of the hotel" },
+        "cityId": { "type": "string", "description": "The ID of the city it belongs to" },
+        "ownerName": { "type": "string", "description": "Full name of the hotel owner" },
+        "ownerPhone": { "type": "string", "description": "Contact phone number of the owner" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "image", "address", "cityId", "ownerName", "ownerPhone"]
+    }
+  },
+  "firestore": {
+    "/hotels/{hotelId}": {
+      "schema": "Hotel",
+      "description": "Collection of hotels in Georgia."
+    }
+  }
+}
