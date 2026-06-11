@@ -11,12 +11,13 @@ service cloud.firestore {
     }
 
     function isValidHotel(data) {
-      return data.name is string && data.name.size() > 0 &&
-             data.image is string &&
-             data.address is string &&
-             data.cityId is string &&
-             data.ownerName is string &&
-             data.ownerPhone is string;
+      return data.name is string && data.name.size() > 0 && data.name.size() <= 200 &&
+             data.image is string && data.image.size() <= 2000 &&
+             data.address is string && data.address.size() <= 500 &&
+             data.cityId is string && data.cityId.size() <= 100 &&
+             data.ownerName is string && data.ownerName.size() <= 200 &&
+             data.ownerPhone is string && data.ownerPhone.size() <= 50 &&
+             (!('createdAt' in data) || data.createdAt == request.time);
     }
 
     // Default deny
@@ -26,16 +27,14 @@ service cloud.firestore {
 
     // Hotels collection
     match /hotels/{hotelId} {
-      // Anyone signed in can view hotels
-      allow read: if isSignedIn();
+      // Anyone (public/signed in/guest) can view hotels
+      allow read: if true;
       
-      // For this demo, we allow creation if signed in, but in a real app,
-      // you'd probably restrict this to specific roles/admins.
-      allow create: if isSignedIn() && isValidHotel(request.resource.data);
+      // For this demo, we allow creation if signed in or dynamic guest seeding, under schema validations.
+      allow create: if isValidHotel(request.resource.data);
       
-      // Updates and deletes are restricted (could be owner of the hotel or admin)
-      // For simplicity in this prompt, let's just allow reading for now as it's a booking site.
-      // If we had a 'creatorId' field, we would use it.
+      // Disable update/delete on public catalog for security
+      allow update, delete: if false;
     }
   }
 }

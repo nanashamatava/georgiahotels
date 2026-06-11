@@ -70,9 +70,19 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
               <p className="text-[10px] font-bold text-white uppercase tracking-tighter leading-none mb-1">{user?.displayName || 'Guest'}</p>
               <p className="text-[9px] text-cyan-accent uppercase tracking-widest leading-none">{t('status_premium')}</p>
             </div>
+            
+            {/* Explicit visible Sign Out Button */}
             <button 
               onClick={handleLogout}
-              className="relative w-9 h-9 group"
+              className="flex items-center gap-1.5 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 hover:border-red-500/40 text-red-400 px-3 py-1.5 rounded-sm text-[9px] font-black uppercase tracking-wider transition-all cursor-pointer"
+            >
+              <LogOut className="w-3.5 h-3.5" />
+              <span>{t('nav_sign_out')}</span>
+            </button>
+
+            <button 
+              onClick={handleLogout}
+              className="relative w-9 h-9 group hidden sm:block cursor-pointer"
             >
               <div className="w-full h-full rounded-full bg-cyan-accent flex items-center justify-center border-2 border-navy shadow-[0_0_0_1px_rgba(56,189,248,0.4)] overflow-hidden group-hover:scale-110 transition-transform">
                 {user?.photoURL ? (

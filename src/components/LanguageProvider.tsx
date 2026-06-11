@@ -81,7 +81,7 @@ export const translations: Translations = {
   // Footer
   footer_platform: { en: 'GEORGIA STAY TRAVEL PLATFORM', ka: 'GEORGIA STAY სამოგზაურო პლატფორმა' },
   footer_terms: { en: 'Terms of Service', ka: 'წესები და პირობები' },
-  footer_verified: { en: 'Verified by Google Auth', ka: 'ვერიფიცირებულია Google-ით' },
+  footer_verified: { en: 'Guest Authentication Active', ka: 'სტუმრის ავტორიზაცია აქტიურია' },
 };
 
 interface LanguageContextType {
