@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { LogOut, ChevronLeft, Languages } from 'lucide-react';
-import { logout, auth } from '../lib/firebase';
+import { logout } from '../lib/firebase';
 import { motion } from 'motion/react';
 import { useLanguage } from './LanguageProvider';
+import { useAuth } from './AuthProvider';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -13,10 +14,11 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const isHome = location.pathname === '/';
-  const user = auth.currentUser;
+  const { user } = useAuth();
   const { language, setLanguage, t } = useLanguage();
 
   const handleLogout = async () => {
+    localStorage.removeItem('demo_user');
     await logout();
     navigate('/');
   };
